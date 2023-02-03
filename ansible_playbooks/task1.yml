@@ -1,8 +1,8 @@
 ---
-- host: all
+- hosts: all
   become: yes
   tasks:
     - name: install apache in server
       apt:
-       name: apache
+       name: apache2
        state: present
