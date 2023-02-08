@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: i want to install java on ubuntu
+      apt:
+        name: "{{myjava}}"
+        state: present
+      when: ansible_os_family == "Debian"
+    - name: i want to install apache
+      apt:
+        name: apache2
+        state: present
+    - name: i want to restart apache
+      service:
+        name: apache2
+        state: restarted
+    - name: i want to copy dynamic file into ansible remote server
+      template:
+        src: mydynamicfile.j2
+        dest: /var/www/html/index.html
+

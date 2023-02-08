@@ -1,0 +1,7 @@
+# playbook is used to create
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_tasks: task5.2.yml

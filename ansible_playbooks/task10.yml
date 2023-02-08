@@ -1,0 +1,21 @@
+# "---" is not a mandotary because it was depricated 
+- hosts: all
+  become: yes
+  tasks:
+  - name: i want to install apache2
+    apt:
+      name: apache2
+      state: present
+    notify: restartwebserver
+
+  - name: i want to copy static file into ansible node
+    template:
+      src: mydynamicfile.j2
+      dest: /var/www/html/index.html
+    notify: restartwebserver
+
+  handlers:
+  - name: restartwebserver
+    service:
+      name: apache2
+      state: restarted

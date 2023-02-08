@@ -1,0 +1,28 @@
+# playbook for stderr now based on standard error next task will be executed
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: i want to run a command
+      shell: 'uptime'
+      register: myresult
+    - name: i want to display the result
+      debug:
+        msg: "{{myresult}}"
+
+    - name: i want to install git
+      apt:
+        name: git
+        state: present
+      when: 
+        - ansible_os_family == "Debian"
+        - myresult.stderr ==""
+    
+    - name: i want to install tree
+      apt:
+        name: tree
+        state: present
+      when: 
+        - ansible_os_family == "Debian"
+        - myresult.stderr !=""

@@ -1,0 +1,22 @@
+# playbook to install apache on remote server and copy static file to remote server
+
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: i want to install apache2 on remote server
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: i want to copy static file to remote server
+      template:
+        src: mystaticfile.html
+        dest: /var/www/html/index.html
+
+    - name: i want to restart apache
+      service:
+        name: apache2
+        state: restarted

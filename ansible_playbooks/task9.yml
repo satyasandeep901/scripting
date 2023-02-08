@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: i want to install apache2
+    apt:
+      name: apache2
+      state: present
+  handlers:
+  - name: restartservice
+    service:
+      name: apache2
+      state: restarted
+
+  - name: i want to copy static file into remote server
+    template:
+      src: mystaticfile.html
+      dest: /var/www/html/index.html
+    notify: restart service

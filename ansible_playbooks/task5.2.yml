@@ -1,0 +1,10 @@
+---
+  - name: i want to create directory
+    file:
+      path: /home/sandeep/mydynamicdirectory
+      state: directory
+
+  - name: i want to create file
+    file:
+      path: /home/sandeep/mydynamicdirectory/mydynamicfile
+      state: directory

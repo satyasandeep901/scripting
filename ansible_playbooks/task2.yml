@@ -1,0 +1,40 @@
+# playbook to install apache & httpd and restart on ubuntu and redhat remote server 
+
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: To install apache on ubuntu server
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+      
+    - name: i want to restart apache 
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_os_family == "Debian"
+      register: result
+    - name: i want to display the result
+      debug:
+        msg: "{{result}}"
+
+    - name: i want to execute command on remote server
+      command: 'sudo systemctl status apache2'
+      register: apachestatus
+    - name: i want to display the result
+      debug:
+        msg: "{{apachestatus}}"
+
+    - name: i want to install httpd on redhat remote server
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat"
+    - name: i want to restart httpd
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_os_family == "RedHat"
