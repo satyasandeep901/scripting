@@ -6,4 +6,4 @@
     - name: install apache in server
       apt:
        name: apache2
-       state: present
+       state: absent
