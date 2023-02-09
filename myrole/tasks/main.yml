@@ -1,2 +1,6 @@
 ---
-# tasks file for myrole
+- name: install webserver on node server
+  apt:
+    name: apache2
+    state: present
+  notify: restartwebserver
